@@ -56,7 +56,6 @@ export class BingAddressAutocomplete implements ComponentFramework.StandardContr
             bingApiKey = context.parameters.bingapiprodkey.raw;
         }
 
-        let bingApiKey = context.parameters.bingapikey.raw;
         let scriptUrl = "https://www.bing.com/api/maps/mapcontrol?callback=loadAutoSuggest&key=" + bingApiKey;
 
         let scriptNode = document.createElement("script");

@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <manifest>
-  <control namespace="PCFBingAddressControl" constructor="BingAddressControl" version="0.0.1" display-name-key="BingAddressControl" description-key="BingAddressControl description" control-type="standard">
+  <control namespace="AC" constructor="BingAddressAutocomplete" version="0.0.16" display-name-key="Bing Address Autocomplete" description-key="Use this control to enable address autocomplete feature powered by Bing Maps API" control-type="standard">
     <property name="value" display-name-key="Full Address" description-key="Full Address" of-type="SingleLine.Text" usage="bound" required="true" />
     <property name="bingapidevkey" display-name-key="Bing Api Key (Dev)" description-key="Enter valid Bing API Key to enable address autocomplete functionality for Dev" of-type="SingleLine.Text" usage="input" required="true" />
     <property name="bingapiprodkey" display-name-key="Bing Api Key (Prod)" description-key="Enter valid Bing API Key to enable address autocomplete functionality for Prod" of-type="SingleLine.Text" usage="input" required="true" />
