@@ -12,6 +12,9 @@ export interface IInputs {
     state: ComponentFramework.PropertyTypes.StringProperty;
     zipcode: ComponentFramework.PropertyTypes.StringProperty;
     country: ComponentFramework.PropertyTypes.StringProperty;
+    countrycode: ComponentFramework.PropertyTypes.StringProperty;
+    latitude: ComponentFramwork.PropertyTypes.FPProperty;
+    longitude: ComponentFramwork.PropertyTypes.FPProperty;
 }
 export interface IOutputs {
     value?: string;
@@ -21,4 +24,7 @@ export interface IOutputs {
     state?: string;
     zipcode?: string;
     country?: string;
+    countrycode?: string;
+    latitude?: number;
+    longitude?: number;
 }

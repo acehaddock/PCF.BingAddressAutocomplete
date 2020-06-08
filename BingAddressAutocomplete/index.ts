@@ -14,6 +14,9 @@ export class BingAddressAutocomplete implements ComponentFramework.StandardContr
     private state: string;
     private zipcode: string;
     private country: string;
+    private countrycode: string;
+    private latitude: number;
+    private longitude: number;
 
     constructor() {
 
@@ -23,9 +26,12 @@ export class BingAddressAutocomplete implements ComponentFramework.StandardContr
         notifyOutputChanged: () => void,
         state: ComponentFramework.Dictionary,
         container: HTMLDivElement) {
-        if (typeof (context.parameters.bingapikey) === "undefined" ||
-            typeof (context.parameters.bingapikey.raw) === "undefined") {
-            container.innerHTML = "Please provide a valid bing api key";
+        if (typeof (context.parameters.bingapidevkey) === "undefined" ||
+            typeof (context.parameters.bingapidevkey.raw) === "undefined" ||
+            typeof (context.parameters.bingapiprodkey) === "undefined" ||
+            typeof (context.parameters.bingapiprodkey.raw) === "undefined" ||
+            typeof (context.parameters.isproductionbingkey) === "undefined") {
+            container.innerHTML = "Please provide a valid bing api key/ missing production bing key flag";
             return;
         }
 
@@ -43,6 +49,12 @@ export class BingAddressAutocomplete implements ComponentFramework.StandardContr
 
 		container.setAttribute("id", "searchBoxContainer");
         container.appendChild(this.searchBox);
+
+        let productionBingKeyFlag = context.parameters.isproductionbingkey.raw;
+        let bingApiKey = context.parameters.bingapidevkey.raw;
+        if (productionBingKeyFlag == true) {
+            bingApiKey = context.parameters.bingapiprodkey.raw;
+        }
 
         let bingApiKey = context.parameters.bingapikey.raw;
         let scriptUrl = "https://www.bing.com/api/maps/mapcontrol?callback=loadAutoSuggest&key=" + bingApiKey;
@@ -69,7 +81,10 @@ export class BingAddressAutocomplete implements ComponentFramework.StandardContr
                         _this.state = suggestionResult.address.adminDistrict;
                         _this.country = suggestionResult.address.countryRegion;
                         _this.zipcode = suggestionResult.address.postalCode;
-                        
+                        _this.countrycode = suggestionResult.address.countryRegionISO2;
+                        _this.latitude = suggestionResult.location.latitude;
+                        _this.longitude = suggestionResult.location.longitude;
+
                         _this.value = suggestionResult.formattedSuggestion || "";
                         _this.notifyOutputChanged();
                     });
@@ -92,7 +107,10 @@ export class BingAddressAutocomplete implements ComponentFramework.StandardContr
 		this.county = "";
 		this.state = "";
 		this.country = "";
-		this.zipcode = "";
+        this.zipcode = "";
+        this.countrycode = "";
+        this.latitude = 0;
+        this.longitude = 0;
 		
 		this.value = suggestionResult.formattedSuggestion || "";
 		this.notifyOutputChanged();
@@ -127,7 +145,10 @@ export class BingAddressAutocomplete implements ComponentFramework.StandardContr
             county: this.county,
             state: this.state,
             country: this.country,
-            zipcode: this.zipcode
+            zipcode: this.zipcode,
+            countrycode: this.countrycode,
+            latitude: this.latitude,
+            longitude: this.longitude
         };
     }
 
